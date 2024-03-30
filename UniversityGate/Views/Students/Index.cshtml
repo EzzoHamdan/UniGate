@@ -1,0 +1,136 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<UniversityGate.Models.Student>
+
+@{
+    ViewBag.Title = "Student Management";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<h2 style="font-family:Candara">Student List</h2>
+
+<p>
+    @Html.ActionLink("Add New Student", "Add", null, new { @class = "btn btn-outline-success mt-2 mb-1 " })
+
+</p>
+@using (Html.BeginForm("Index", "Students", FormMethod.Get, new { id = "mainForm" }))
+{
+    <div class="btn-group mb-3 mt-0" role="group">
+        <input type="submit" value="Find Student" class="btn btn-outline-primary" />
+        @Html.DropDownList("option", new SelectListItem[] { new SelectListItem { Value = "First Name", Text = "First Name" }, new SelectListItem { Value = "Last Name", Text = "Last Name" }, new SelectListItem { Value = "ID", Text = "ID" }, new SelectListItem { Value = "Email", Text = "Email" } }, "Find By", new { @class = "btn btn-outline-primary", id = "option" })
+        @Html.TextBox("name", "", new { @class = "btn btn-outline-primary", placeholder = "Enter Text" })
+
+        <input type="button" value="Cancel" class="btn btn-outline-primary" onclick="cancelForm()" />
+    </div>
+}
+<script>
+    function cancelForm() {
+        document.getElementById("option").value = "Cancel";
+        document.getElementById("mainForm").submit();
+    }
+</script>
+
+@if (Model.Count != 0)
+{
+
+    <div class="card bg-light shadow-lg ">
+
+        <table class="table table-success table-bordered  table-hover" style="margin:unset">
+            <thead class="thead-dark">
+                @using (Html.BeginForm("Index", "Students", FormMethod.Get))
+                {
+                    <tr>
+                        <th class="hover">
+                            @Html.ActionLink("Student Name", "Index", "Students", new { name = "Student Name" }, new { @class = "text-link" })
+                        </th>
+                        <th class="hover">
+                            @Html.ActionLink("Stuednt ID", "Index", "Students", new { name = "Stuednt ID" }, new { @class = "text-link" })
+                        </th>
+                        <th style="font-size:18px">
+                            Email
+                        </th>
+                        <th class="hover">
+                            @Html.ActionLink("Cumulative GPA", "Index", "Students", new { name = "Cumulative GPA" }, new { @class = "text-link" })
+                        </th>
+                        <th style="font-size:18px">
+                            Action
+                        </th>
+                    </tr>
+                }
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.first_name) @Html.DisplayFor(modelItem => item.last_name)
+                        </td>
+                        <td>
+                            @item.studentID
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+                        <td>
+                            @{
+                                decimal averageGrade = 0;
+
+                                if (item.Grades != null && item.Grades.Any())
+                                {
+                                    averageGrade = Convert.ToDecimal(item.Grades.Average(grade => grade.grade_value));
+                                }
+                            }
+
+                            @averageGrade.ToString("0.##")
+                        </td>
+                        <td>
+                            <cetner>
+                                <div class="btn-group" role="group">
+
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.student_id }, new { @class = "btn btn-outline-primary" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.student_id }, new { @class = "btn btn-outline-success" })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.student_id }, new { @class = "btn btn-outline-danger" })
+
+                                </div>
+                            </cetner>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <center>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, name = Request.QueryString["name"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+    </center>
+
+}
+else
+{
+    <h5>No student to show, you can add student any time !!</h5>
+}
+
+
+
+
+
+
+
+
+<style>
+    .text-link {
+        font-size: 18px;
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+        .text-link:hover {
+            color: darkgreen;
+        }
+
+    .hover:hover {
+        background-color: cornsilk;
+    }
+</style>

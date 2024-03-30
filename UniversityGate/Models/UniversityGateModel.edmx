@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UniversityGateDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="credit_hours" Type="int" />
+          <Property Name="department" Type="varchar" MaxLength="50" />
+          <Property Name="professor_id" Type="int" />
+        </EntityType>
+        <EntityType Name="EnrolledCourses">
+          <Key>
+            <PropertyRef Name="enrollment_id" />
+          </Key>
+          <Property Name="enrollment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_id" Type="int" Nullable="false" />
+          <Property Name="course_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grades">
+          <Key>
+            <PropertyRef Name="grade_id" />
+          </Key>
+          <Property Name="grade_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="course_id" Type="int" />
+          <Property Name="grade_value" Type="decimal" Precision="3" Scale="2" />
+          <Property Name="professor_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Professors">
+          <Key>
+            <PropertyRef Name="professor_id" />
+          </Key>
+          <Property Name="professor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="hire_date" Type="date" />
+          <Property Name="professorID" Type="nvarchar" MaxLength="50" />
+          <Property Name="professorPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserRole" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="enrollment_date" Type="date" />
+          <Property Name="studentID" Type="nvarchar" MaxLength="50" />
+          <Property Name="studentPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserRole" Type="int" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Courses_ToProfessor">
+          <End Role="Professors" Type="Self.Professors" Multiplicity="0..1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professors">
+              <PropertyRef Name="professor_id" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="professor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnrolledCourses_ToCourses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="EnrolledCourses" Type="Self.EnrolledCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="EnrolledCourses">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnrolledCourses_ToStudents">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="EnrolledCourses" Type="Self.EnrolledCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="EnrolledCourses">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grades_Cours">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grades_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grades_ToProfessor">
+          <End Role="Professors" Type="Self.Professors" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professors">
+              <PropertyRef Name="professor_id" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="professor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professors_ToRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Professors" Type="Self.Professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Professors">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_ToRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UniversityGateDatabaseModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnrolledCourses" EntityType="Self.EnrolledCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grades" EntityType="Self.Grades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professors" EntityType="Self.Professors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Courses_ToProfessor" Association="Self.FK_Courses_ToProfessor">
+            <End Role="Professors" EntitySet="Professors" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnrolledCourses_ToCourses" Association="Self.FK_EnrolledCourses_ToCourses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="EnrolledCourses" EntitySet="EnrolledCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnrolledCourses_ToStudents" Association="Self.FK_EnrolledCourses_ToStudents">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="EnrolledCourses" EntitySet="EnrolledCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grades_Cours" Association="Self.FK_Grades_Cours">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grades_Students" Association="Self.FK_Grades_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grades_ToProfessor" Association="Self.FK_Grades_ToProfessor">
+            <End Role="Professors" EntitySet="Professors" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professors_ToRoles" Association="Self.FK_Professors_ToRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Professors" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_ToRoles" Association="Self.FK_Student_ToRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniversityGateDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cours">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="credit_hours" Type="Int32" />
+          <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="professor_id" Type="Int32" />
+          <NavigationProperty Name="Professor" Relationship="UniversityGateDatabaseModel.FK_Courses_ToProfessor" FromRole="Cours" ToRole="Professor" />
+          <NavigationProperty Name="Grades" Relationship="UniversityGateDatabaseModel.FK_Grades_Cours" FromRole="Cours" ToRole="Grade" />
+          <NavigationProperty Name="EnrolledCourses" Relationship="UniversityGateDatabaseModel.FK_EnrolledCourses_ToCourses" FromRole="Cours" ToRole="EnrolledCours" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="grade_id" />
+          </Key>
+          <Property Name="grade_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_id" Type="Int32" />
+          <Property Name="grade_value" Type="Decimal" Precision="3" Scale="2" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Grades__student___44FF419A" FromRole="Grades" ToRole="Students" />
+          <Property Name="professor_id" Type="Int32" />
+          <NavigationProperty Name="Professor" Relationship="UniversityGateDatabaseModel.FK_Grades_ToProfessor" FromRole="Grade" ToRole="Professor" />
+          <Property Name="course_id" Type="Int32" />
+          <NavigationProperty Name="Cours" Relationship="UniversityGateDatabaseModel.FK_Grades_Cours" FromRole="Grade" ToRole="Cours" />
+        </EntityType>
+        <EntityType Name="Professor">
+          <Key>
+            <PropertyRef Name="professor_id" />
+          </Key>
+          <Property Name="professor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="hire_date" Type="DateTime" Precision="0" />
+          <Property Name="professorID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="professorPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Grades" Relationship="UniversityGateDatabaseModel.FK_Grades_ToProfessor" FromRole="Professor" ToRole="Grade" />
+          <NavigationProperty Name="Courses" Relationship="UniversityGateDatabaseModel.FK_Courses_ToProfessor" FromRole="Professor" ToRole="Cours" />
+          <Property Name="UserRole" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="UniversityGateDatabaseModel.FK_Professors_ToRoles" FromRole="Professor" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="enrollment_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Grades" Relationship="Self.FK__Grades__student___44FF419A" FromRole="Students" ToRole="Grades" />
+          <Property Name="studentID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="studentPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EnrolledCourses" Relationship="UniversityGateDatabaseModel.FK_EnrolledCourses_ToStudents" FromRole="Student" ToRole="EnrolledCours" />
+          <Property Name="UserRole" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="UniversityGateDatabaseModel.FK_Student_ToRoles" FromRole="Student" ToRole="Role" />
+          <Property Name="ImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__Grades__student___44FF419A">
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UniGateDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Cours" />
+          <EntitySet Name="Grades" EntityType="Self.Grade" />
+          <EntitySet Name="Professors" EntityType="Self.Professor" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK__Grades__student___44FF419A" Association="Self.FK__Grades__student___44FF419A">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grades_ToProfessor" Association="UniversityGateDatabaseModel.FK_Grades_ToProfessor">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="Grade" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_ToProfessor" Association="UniversityGateDatabaseModel.FK_Courses_ToProfessor">
+            <End Role="Professor" EntitySet="Professors" />
+            <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Grades_Cours" Association="UniversityGateDatabaseModel.FK_Grades_Cours">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Grade" EntitySet="Grades" />
+          </AssociationSet>
+          <EntitySet Name="EnrolledCourses" EntityType="UniversityGateDatabaseModel.EnrolledCours" />
+          <AssociationSet Name="FK_EnrolledCourses_ToCourses" Association="UniversityGateDatabaseModel.FK_EnrolledCourses_ToCourses">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="EnrolledCours" EntitySet="EnrolledCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnrolledCourses_ToStudents" Association="UniversityGateDatabaseModel.FK_EnrolledCourses_ToStudents">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="EnrolledCours" EntitySet="EnrolledCourses" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="UniversityGateDatabaseModel.Role" />
+          <AssociationSet Name="FK_Professors_ToRoles" Association="UniversityGateDatabaseModel.FK_Professors_ToRoles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Professor" EntitySet="Professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_ToRoles" Association="UniversityGateDatabaseModel.FK_Student_ToRoles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          </EntityContainer>
+        <Association Name="FK_Grades_ToProfessor">
+          <End Type="UniversityGateDatabaseModel.Professor" Role="Professor" Multiplicity="0..1" />
+          <End Type="UniversityGateDatabaseModel.Grade" Role="Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="professor_id" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="professor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_ToProfessor">
+          <End Type="UniversityGateDatabaseModel.Professor" Role="Professor" Multiplicity="0..1" />
+          <End Type="UniversityGateDatabaseModel.Cours" Role="Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professor">
+              <PropertyRef Name="professor_id" />
+            </Principal>
+            <Dependent Role="Cours">
+              <PropertyRef Name="professor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Grades_Cours">
+          <End Type="UniversityGateDatabaseModel.Cours" Role="Cours" Multiplicity="0..1" />
+          <End Type="UniversityGateDatabaseModel.Grade" Role="Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="Grade">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EnrolledCours">
+          <Key>
+            <PropertyRef Name="enrollment_id" />
+          </Key>
+          <Property Name="enrollment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_id" Type="Int32" Nullable="false" />
+          <Property Name="course_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cours" Relationship="UniversityGateDatabaseModel.FK_EnrolledCourses_ToCourses" FromRole="EnrolledCours" ToRole="Cours" />
+          <NavigationProperty Name="Student" Relationship="UniversityGateDatabaseModel.FK_EnrolledCourses_ToStudents" FromRole="EnrolledCours" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_EnrolledCourses_ToCourses">
+          <End Type="UniversityGateDatabaseModel.Cours" Role="Cours" Multiplicity="1" />
+          <End Type="UniversityGateDatabaseModel.EnrolledCours" Role="EnrolledCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="EnrolledCours">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnrolledCourses_ToStudents">
+          <End Type="UniversityGateDatabaseModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="UniversityGateDatabaseModel.EnrolledCours" Role="EnrolledCours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="EnrolledCours">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Professors" Relationship="UniversityGateDatabaseModel.FK_Professors_ToRoles" FromRole="Role" ToRole="Professor" />
+          <NavigationProperty Name="Students" Relationship="UniversityGateDatabaseModel.FK_Student_ToRoles" FromRole="Role" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Professors_ToRoles">
+          <End Type="UniversityGateDatabaseModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="UniversityGateDatabaseModel.Professor" Role="Professor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Professor">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_ToRoles">
+          <End Type="UniversityGateDatabaseModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="UniversityGateDatabaseModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UniversityGateDatabaseModelStoreContainer" CdmEntityContainer="UniGateDatabaseEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Cours">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="professor_id" ColumnName="professor_id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="credit_hours" ColumnName="credit_hours" />
+                <ScalarProperty Name="department" ColumnName="department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Grade">
+              <MappingFragment StoreEntitySet="Grades">
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="professor_id" ColumnName="professor_id" />
+                <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="grade_value" ColumnName="grade_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professors">
+            <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Professor">
+              <MappingFragment StoreEntitySet="Professors">
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="professorPassword" ColumnName="professorPassword" />
+                <ScalarProperty Name="professorID" ColumnName="professorID" />
+                <ScalarProperty Name="professor_id" ColumnName="professor_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="hire_date" ColumnName="hire_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="studentPassword" ColumnName="studentPassword" />
+                <ScalarProperty Name="studentID" ColumnName="studentID" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="enrollment_date" ColumnName="enrollment_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnrolledCourses">
+            <EntityTypeMapping TypeName="UniversityGateDatabaseModel.EnrolledCours">
+              <MappingFragment StoreEntitySet="EnrolledCourses">
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="enrollment_id" ColumnName="enrollment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,46 @@
+﻿@model UniversityGate.Models.QuizModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutQuiz.cshtml"; ;
+    ViewBag.Title = "Take";
+}
+
+
+<h2>Quiz Details</h2>
+<div class="quiz-container">
+    @using (Html.BeginForm("Submit", "Student", new { id = Model.ID }, FormMethod.Post))
+    {
+        <h3>No. of Questions: @Model.NoOfQuestions</h3>
+
+        for (int i = 0; i < Model.Questions.Count; i++)
+        {
+            var question = Model.Questions[i];
+
+            <div class="question">
+                <h4>Question @i + 1:</h4>
+                <p>@question.QuestionText</p>
+
+                <h4>Options:</h4>
+
+                <div class="answers">
+
+                    <ul>
+                        @for (int j = 0; j < question.Options.Count; j++)
+                        {
+                            var option = question.Options[j];
+                            <li>
+                                @Html.RadioButton($"answers[{i}]", j + 1, new { @class = "answer-option" }) @option
+                                <br />
+                            </li>
+                        }
+                    </ul>
+                </div>
+                @Html.Hidden($"correctAnswers[{i}]", question.CorrectOption)
+
+                <hr />
+            </div>
+        }
+
+        <input type="submit" value="Submit" class="submit-btn" />
+    }
+</div>

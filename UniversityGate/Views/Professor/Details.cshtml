@@ -1,0 +1,32 @@
+﻿@model UniversityGate.Models.QuizModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutQuiz.cshtml"; ;
+    ViewBag.Title = "Details";
+}
+
+<h2>Quiz Details</h2>
+
+<h3>No. of Questions: @Model.NoOfQuestions</h3>
+
+@foreach (var question in Model.Questions)
+{
+    <div>
+        <h4>Question:</h4>
+        <p>@question.QuestionText</p>
+
+        <h4>Options:</h4>
+        <ul>
+            @foreach (var option in question.Options)
+            {
+                <li>@option</li>
+            }
+        </ul>
+
+        <h4>Correct Option:</h4>
+        <p>@question.CorrectOption</p>
+
+        <hr />
+    </div>
+}
+

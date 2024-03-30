@@ -1,0 +1,21 @@
+﻿@model UniversityGate.Models.Professor
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<h2>Add New Professor</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("_ProfessorInputFiled")
+    <input type="submit" value="ADD" class="btn btn-outline-success" />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

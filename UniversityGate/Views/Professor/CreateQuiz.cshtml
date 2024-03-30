@@ -1,0 +1,40 @@
+﻿@model UniversityGate.Models.QuizModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutQuiz.cshtml"; ;
+    ViewBag.Title = "CreateQuiz";
+}
+
+<h2>CreateQuiz</h2>
+
+<div id="formContainer">
+    @using (Html.BeginForm("CreateQuiz", "Professor", FormMethod.Post))
+    {
+        <label>Quiz Name: </label>
+        <input type="text" name="QuizName" value="@Model.QuizName" />
+        <br />
+        for (var i = 0; i < Model.NoOfQuestions; i++)
+        {
+            var question = Model.Questions[i];
+
+            <label>Question @(i + 1): </label>
+            <input type="text" name="Questions[@i].QuestionText" value="@question.QuestionText" />
+            <br />
+
+            for (var j = 0; j < 4; j++)
+            {
+                <label>Option @(j + 1): </label>
+                <input type="text" name="Questions[@i].Options[@j]" value="@question.Options[j]" />
+                <br />
+            }
+
+            <label>Correct Option: </label>
+            <input type="number" name="Questions[@i].CorrectOption" value="@question.CorrectOption" min="1" max="4" />
+            <br />
+        }
+
+        <input type="submit" value="Submit" class="SpecialButton" />
+    }
+</div>
+
+

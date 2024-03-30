@@ -1,0 +1,53 @@
+﻿@model UniversityGate.Models.Student
+
+<div class="container mt-4">
+    <hr />
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">First Name</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.first_name</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Last Name</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.last_name</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">Student ID</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.studentID</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Date Of Birth</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.date_of_birth</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">Email</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.email</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Enrollment Date</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.enrollment_date</td>
+            </tr>
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Image</th>
+                @if (Model.ImagePath != null)
+                {
+                    <td><img src="~/Images/@Model.ImagePath" /></td>
+                }
+                else
+                {
+                    
+                    <td>
+                        <img src="~/Images/student.png" />
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>

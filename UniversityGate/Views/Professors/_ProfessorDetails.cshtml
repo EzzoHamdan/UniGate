@@ -1,0 +1,35 @@
+﻿@model UniversityGate.Models.Professor
+
+<div class="container mt-4">
+    <hr />
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">First Name</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.first_name</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Last Name</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.last_name</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">Professor ID</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.professorID</td>
+            </tr>
+
+
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">Email</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.email</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Hire Date</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.hire_date</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

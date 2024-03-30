@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UniversityGateDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="course_id" />
+    </Key>
+    <Property Name="course_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="course_name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="credit_hours" Type="int" />
+    <Property Name="department" Type="varchar" MaxLength="50" />
+    <Property Name="professor_id" Type="int" />
+  </EntityType>
+  <EntityType Name="EnrolledCourses">
+    <Key>
+      <PropertyRef Name="enrollment_id" />
+    </Key>
+    <Property Name="enrollment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="student_id" Type="int" Nullable="false" />
+    <Property Name="course_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Grades">
+    <Key>
+      <PropertyRef Name="grade_id" />
+    </Key>
+    <Property Name="grade_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="student_id" Type="int" />
+    <Property Name="course_id" Type="int" />
+    <Property Name="grade_value" Type="decimal" Precision="3" Scale="2" />
+    <Property Name="professor_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Professors">
+    <Key>
+      <PropertyRef Name="professor_id" />
+    </Key>
+    <Property Name="professor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="hire_date" Type="date" />
+    <Property Name="professorID" Type="nvarchar" MaxLength="50" />
+    <Property Name="professorPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserRole" Type="int" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="student_id" />
+    </Key>
+    <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="date_of_birth" Type="date" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="enrollment_date" Type="date" />
+    <Property Name="studentID" Type="nvarchar" MaxLength="50" />
+    <Property Name="studentPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserRole" Type="int" />
+    <Property Name="ImagePath" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Courses_ToProfessor">
+    <End Role="Professors" Type="Self.Professors" Multiplicity="0..1" />
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professors">
+        <PropertyRef Name="professor_id" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="professor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EnrolledCourses_ToCourses">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="EnrolledCourses" Type="Self.EnrolledCourses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="course_id" />
+      </Principal>
+      <Dependent Role="EnrolledCourses">
+        <PropertyRef Name="course_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EnrolledCourses_ToStudents">
+    <End Role="Students" Type="Self.Students" Multiplicity="1" />
+    <End Role="EnrolledCourses" Type="Self.EnrolledCourses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="student_id" />
+      </Principal>
+      <Dependent Role="EnrolledCourses">
+        <PropertyRef Name="student_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grades_Cours">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+    <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="course_id" />
+      </Principal>
+      <Dependent Role="Grades">
+        <PropertyRef Name="course_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grades_Students">
+    <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+    <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="student_id" />
+      </Principal>
+      <Dependent Role="Grades">
+        <PropertyRef Name="student_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Grades_ToProfessor">
+    <End Role="Professors" Type="Self.Professors" Multiplicity="0..1" />
+    <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professors">
+        <PropertyRef Name="professor_id" />
+      </Principal>
+      <Dependent Role="Grades">
+        <PropertyRef Name="professor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Professors_ToRoles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="Professors" Type="Self.Professors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Professors">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_ToRoles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+    <End Role="Students" Type="Self.Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="UserRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UniversityGateDatabaseModelStoreContainer">
+    <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EnrolledCourses" EntityType="Self.EnrolledCourses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Grades" EntityType="Self.Grades" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Professors" EntityType="Self.Professors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Courses_ToProfessor" Association="Self.FK_Courses_ToProfessor">
+      <End Role="Professors" EntitySet="Professors" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EnrolledCourses_ToCourses" Association="Self.FK_EnrolledCourses_ToCourses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="EnrolledCourses" EntitySet="EnrolledCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EnrolledCourses_ToStudents" Association="Self.FK_EnrolledCourses_ToStudents">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="EnrolledCourses" EntitySet="EnrolledCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grades_Cours" Association="Self.FK_Grades_Cours">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Grades" EntitySet="Grades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grades_Students" Association="Self.FK_Grades_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Grades" EntitySet="Grades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grades_ToProfessor" Association="Self.FK_Grades_ToProfessor">
+      <End Role="Professors" EntitySet="Professors" />
+      <End Role="Grades" EntitySet="Grades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Professors_ToRoles" Association="Self.FK_Professors_ToRoles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Professors" EntitySet="Professors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_ToRoles" Association="Self.FK_Student_ToRoles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

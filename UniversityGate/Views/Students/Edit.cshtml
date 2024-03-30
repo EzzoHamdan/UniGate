@@ -1,0 +1,30 @@
+﻿@model UniversityGate.Models.Student
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Student</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.student_id)
+    @Html.HiddenFor(model => model.studentID)
+    @Html.HiddenFor(model => model.UserRole)
+    @Html.HiddenFor(model => model.studentPassword)
+    @*@Html.HiddenFor(model => model.ImagePath)*@
+
+
+    <div class="form-horizontal">
+        @Html.Partial("_InputFiled")
+
+        <input type="submit" value="SAVE" class="btn btn-outline-success" />
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

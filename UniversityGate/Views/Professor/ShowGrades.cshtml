@@ -1,0 +1,76 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@model PagedList.IPagedList<UniversityGate.Models.Grade>
+
+@{
+    ViewBag.Title = "ShowGrades";
+    string chooes;
+    
+}
+
+<h3>Show Students Grades</h3>
+@Html.ActionLink("Return To Dashboard", "Index", "Professor", new { id = @ViewBag.professorId }, new { @class = "btn btn-outline-success mt-2 m-lg-2" })
+
+<table>
+    <tr>
+        @using (Html.BeginForm("ShowGrades", "Professor", FormMethod.Get))
+        {
+            
+            @Html.Hidden("page", Model.PageNumber)
+            @*@Html.Hidden("chooes","@ViewBag.chooes")*@
+            
+
+            <td>
+                <input type="submit" value="Pick A specific Course" class="btn btn-outline-success mt-2 m-lg-2" />
+                @Html.DropDownList("chooes", ViewBag.professorCourses as SelectList, "Select one", new { @class = "btn btn-outline-success mt-2 m-lg-2" })
+                <input type="submit" value="Cancel" formaction="~/Professor/Cancel" formmethod="post" class="btn btn-outline-primary mt-2 m-lg-2" />
+            </td>
+        }
+    </tr>
+</table>
+@if (Model.Count != 0)
+{
+    <table class="table table-hover">
+        <tr>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Class Title</th>
+            <th>Grade</th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Student.studentID</td>
+                <td>@item.Student.first_name @item.Student.last_name</td>
+                <td>@item.Cours.course_name</td>
+
+                @using (Html.BeginForm("EditGrade", "Professor", FormMethod.Post))
+                {
+                    @Html.Hidden("professorId", item.professor_id);
+                    @Html.Hidden("gradeId", item.grade_id)
+                    @Html.Hidden("page", Model.PageNumber)
+
+                    <td>
+                        <div class="btn-group" role="group">
+                            <input type="text" name="editedGrade" value="@item.grade_value" class="form-control" />
+                            <input type="submit" value="Edit" class="btn btn-outline-success" />
+                            <input type="hidden" name="gradeId" value="@item.grade_id" />
+                            
+
+                            <input type="submit" value="Delete" formaction="~/Professor/Delete" formmethod="post" class="btn btn-outline-danger" />
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+}
+@Html.PagedListPager(Model, page => Url.Action("ShowGrades", new { page, chooes = Request.QueryString["chooes"] }))
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

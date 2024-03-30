@@ -1,0 +1,21 @@
+﻿@model UniversityGate.Models.Professor
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Professor</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.professor_id)
+    @Html.Partial("_ProfessorInputFiled")
+    <input type="submit" value="Save" class="btn btn-outline-success" />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

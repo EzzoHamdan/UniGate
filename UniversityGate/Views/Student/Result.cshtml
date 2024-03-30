@@ -1,0 +1,28 @@
+﻿@model double?
+
+@{
+    Layout = "~/Views/Shared/_LayoutQuiz.cshtml"; ;
+    ViewBag.Title = "Result";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+</head>
+<body>
+    <h2>Your Quiz Result</h2>
+    @if (Model.HasValue)
+    {
+        <p>Your score is: @Model</p>
+    }
+    else
+    {
+        <p>Score not available</p>
+    }
+
+    <form action="@Url.Action("IndexPortal", "Student")">
+        <button type="submit">Back to Quiz List</button>
+    </form>
+</body>
+</html>

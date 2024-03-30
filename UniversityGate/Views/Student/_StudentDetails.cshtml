@@ -1,0 +1,43 @@
+﻿@model UniversityGate.Models.Student
+
+<div class="container mt-4">
+    <hr />
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">First Name</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.first_name</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Last Name</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.last_name</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">Student ID</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.studentID</td>
+            </tr>
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Student Password</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.studentPassword</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">Date Of Birth</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.date_of_birth</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #28A745;">Email</th>
+                <td style="font-size: 20px; color: #28A745;">@Model.email</td>
+            </tr>
+
+            <tr>
+                <th style="font-size: 18px; color: #007BFF;">Enrollment Date</th>
+                <td style="font-size: 20px; color: #007BFF;">@Model.enrollment_date</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

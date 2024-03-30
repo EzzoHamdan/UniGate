@@ -1,0 +1,126 @@
+﻿@model List<UniversityGate.Models.Cours>
+
+@{
+    var enrolledCourses = ViewBag.registeredCourses as List<UniversityGate.Models.EnrolledCours>;
+    var studentId = ViewBag.studentId;
+}
+
+@if (ViewBag.errorMessage != null)
+{
+    <script>alert("@ViewBag.errorMessage")</script>
+}
+
+
+<div class="login-container">
+
+    <center><h1 class="mb-4" style="font-family: Candara; color: darkslateblue; box-sizing: unset;display:unset">Available Courses</h1></center>
+
+    <div class="card bg-light shadow-lg" id="scrollableDiv" style="padding:4px">
+        <div class="card bg-light shadow-lg table-container">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="font-size: 18px;">Course Title</th>
+                        <th style="font-size: 18px;">Credit Hours</th>
+                        <th style="font-size: 18px;">Department</th>
+                        <th style="font-size: 18px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (!enrolledCourses.Any(c => c.course_id == item.course_id))
+                        {
+                            <tr>
+                                <td>@item.course_name</td>
+                                <td>@item.credit_hours</td>
+                                <td>@item.department</td>   
+                                <td>
+
+                                    <div class="btn-group" role="group">
+                                        @Html.ActionLink("More Details", "cDetails", new { id = item.course_id, sid = studentId }, new { @class = "btn btn-outline-primary" })
+                                        @Html.ActionLink("Add To List", "AddCourse", new { id = studentId, c_id = item.course_id, credit = ViewBag.creditHours }, new { @class = "btn btn-outline-success" })
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2 class="mb-4 text-center" style="font-family:Candara; color: darkslateblue;">Enrolled Courses | Credit Hours: @ViewBag.creditHours</h2>
+
+    @if (enrolledCourses != null && enrolledCourses.Any())
+    {
+        <div class="card bg-light shadow-lg table-container">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+
+                        <th style="font-size: 18px;">Course Title</th>
+                        <th style="font-size: 18px;">Credit Hours</th>
+                        <th style="font-size: 18px;" class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var course in enrolledCourses)
+                    {
+                        <tr>
+
+                            <td>@course.Cours.course_name</td>
+                            <td>@course.Cours.credit_hours</td>
+                            <td class="text-center">
+                                @Html.ActionLink("Remove From List", "DeleteCourse", new { id = studentId, enrollId = course.enrollment_id }, new { @class = "btn btn-outline-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-center mt-4">No enrolled courses found for this student.</p>
+    }
+</div>
+
+
+<style>
+    .login-container {
+        background-color: honeydew;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #scrollableDiv {
+        height: 300px;
+        overflow-y: scroll;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .table-container {
+        margin-top: 20px;
+    }
+
+    th, td {
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .btn-group {
+        display: flex;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+</style>

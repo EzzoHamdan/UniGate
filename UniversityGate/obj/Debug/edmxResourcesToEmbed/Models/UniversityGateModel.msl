@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UniversityGateDatabaseModelStoreContainer" CdmEntityContainer="UniGateDatabaseEntities">
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Cours">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="professor_id" ColumnName="professor_id" />
+          <ScalarProperty Name="course_id" ColumnName="course_id" />
+          <ScalarProperty Name="course_name" ColumnName="course_name" />
+          <ScalarProperty Name="credit_hours" ColumnName="credit_hours" />
+          <ScalarProperty Name="department" ColumnName="department" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grades">
+      <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Grade">
+        <MappingFragment StoreEntitySet="Grades">
+          <ScalarProperty Name="course_id" ColumnName="course_id" />
+          <ScalarProperty Name="professor_id" ColumnName="professor_id" />
+          <ScalarProperty Name="grade_id" ColumnName="grade_id" />
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="grade_value" ColumnName="grade_value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Professors">
+      <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Professor">
+        <MappingFragment StoreEntitySet="Professors">
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="professorPassword" ColumnName="professorPassword" />
+          <ScalarProperty Name="professorID" ColumnName="professorID" />
+          <ScalarProperty Name="professor_id" ColumnName="professor_id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="hire_date" ColumnName="hire_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Student">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="studentPassword" ColumnName="studentPassword" />
+          <ScalarProperty Name="studentID" ColumnName="studentID" />
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="enrollment_date" ColumnName="enrollment_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EnrolledCourses">
+      <EntityTypeMapping TypeName="UniversityGateDatabaseModel.EnrolledCours">
+        <MappingFragment StoreEntitySet="EnrolledCourses">
+          <ScalarProperty Name="course_id" ColumnName="course_id" />
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="enrollment_id" ColumnName="enrollment_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="UniversityGateDatabaseModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

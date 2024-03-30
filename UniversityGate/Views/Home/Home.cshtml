@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="masthead-container">
+    <div class="masthead-content">
+        <h1 class="masthead-heading">Welcome to UniversityGate</h1>
+        <p class="masthead-text">@ViewBag.message</p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Login", "Login", "Home", new { @class = "masthead-button" })
+        }
+
+    </div>
+</div>
+<style>
+    .masthead-container {
+        
+        background-color: transparent;
+        height: 700px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #DDD; /* Optionally add a subtle border */
+        border-radius: 20px; /* Optionally add a subtle border-radius */
+    }
+
+    .masthead-content {
+        color: #2D3740; /* Adjust text color to stand out */
+        text-align: center;
+        padding: 0 20px; /* Adjust padding as needed */
+    }
+
+    .masthead-heading {
+        font-size: 4em;
+        margin-bottom: 20px;
+        font-family: "Roboto", sans-serif; /* Choose your desired font */
+    }
+
+    .masthead-text {
+        font-size: 2em;
+        max-width: 100%;
+        margin: 0 auto;
+        line-height: 5; /* Adjust line-height for better readability */
+    }
+
+    .masthead-button {
+        width:160px;
+        display: inline-block;
+        padding: 10px 20px;
+        border: 1px solid #2D3740; /* Match border color to text */
+        border-radius: 5px;
+        color: #2D3740;
+        font-weight: bold;
+        margin-top: 20px;
+        text-decoration: none;
+        transition: background-color 0.2s ease-in-out;
+        font-size: 22px;
+    }
+
+        .masthead-button:hover {
+            background-color: #DDD; /* Adjust hover color subtly */
+        }
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<main>
+        <section class="row" aria-labelledby="aspnetTitle">
+            <h1 id="title">ASP.NET</h1>
+            <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+            <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
+        </section>
+
+        <div class="row">
+            <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+                <h2 id="gettingStartedTitle">Getting started</h2>
+                <p>
+                    ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                    enables a clean separation of concerns and gives you full control over markup
+                    for enjoyable, agile development.
+                </p>
+                <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </section>
+            <section class="col-md-4" aria-labelledby="librariesTitle">
+                <h2 id="librariesTitle">Get more libraries</h2>
+                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+            </section>
+            <section class="col-md-4" aria-labelledby="hostingTitle">
+                <h2 id="hostingTitle">Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </section>
+        </div>
+    </main>*@

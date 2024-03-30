@@ -1,0 +1,56 @@
+﻿@model UniversityGate.Models.User
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="login-container d-flex align-items-center  justify-content-center">
+    <div class="card bg-light shadow-lg p-5">
+        <center><h1 class="text-center mb-4" style="font-family:Candara;color:darkslateblue">WELCOME BACK</h1></center>
+
+        @using (Html.BeginForm("Login", "Home", new { ReturnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
+        {
+            <div class="mb-3">
+                <label for="Username" class="form-label"> User ID</label>
+
+                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", placeholder = "Enter Username", required = "required" })
+
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Id)</span>
+            </div>
+            <div class="mb-3">
+                <label for="Password"
+                       class="form-label"> Password</label>
+
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Password", required = "required" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
+            </div>
+            <div class="mb-3">
+                <label for="UserType" class="form-label"> User Type</label>
+
+                @Html.DropDownListFor(model => model.Type, new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Select One", Value = "" },
+                        new SelectListItem { Text = "Student", Value = "Student" },
+                        new SelectListItem { Text = "Professor", Value = "Professor" },
+                        new SelectListItem { Text = "Administrator", Value = "Administrator" }
+                    }, new { @id = "UserType", @class = "form-control", @required = "required" })
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-4" >Log In</button>
+            
+            @*<a href="ForgotPassword" class="mt-3 d-block text-center text-muted">Forgot Password?</a>*@
+            
+
+        }
+    </div>
+</div>
+
+<style>
+    .login-container {
+        height: 80vh;
+        background-color: honeydew;
+    }
+</style>
+
+
+
+
+

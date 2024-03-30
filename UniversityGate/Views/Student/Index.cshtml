@@ -1,0 +1,52 @@
+﻿@model UniversityGate.Models.Student
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+<div class="welcome-parallax">
+    <div class="background-layer">
+    </div>
+    <div class="foreground-layer">
+        <h1>@ViewBag.message <span>@Model.first_name</span>, Welcome Back</h1>
+        <p>Your academic journey continues.</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-primary">Student Profile</h5>
+                    <p class="card-text">
+                        Navigate your academic journey effortlessly with our Student Profile. Access records, grades seamlessly. simplifying tasks for a streamlined student experience.
+                    </p>
+                    <center>@Html.ActionLink("Profile", "Details", new { area = "" }, new { @class = "btn btn-primary" })</center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-success" >Course Enrollment</h5>
+                    <p class="card-text">
+                        Effortlessly browse and enroll in courses, with a user-friendly interface designed for seamless navigation and efficient registration.
+                    </p>
+                    <center>@Html.ActionLink("Manage Course", "Enroll", new { area = "",id = Model.student_id }, new { @class = "btn btn-success" })</center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-info">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-info">The Exams Portal</h5>
+                    <p class="card-text">
+                        A distinctive online exam portal designed for handling multiple-choice questions. With its own CSS style and JavaScript-powered functionality.
+                    </p>
+                    <center>@Html.ActionLink("Check For Quizzes", "IndexPortal", "Student", new { area = "" }, new { @class = "btn btn-info" })</center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

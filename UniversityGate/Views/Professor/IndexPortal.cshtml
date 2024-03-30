@@ -1,0 +1,39 @@
+﻿@model List<UniversityGate.Models.QuizModel>
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutQuiz.cshtml"; ;
+    ViewBag.Title = "IndexPortal";
+}
+
+
+
+<h2>Quiz Management</h2>
+
+<h4>Quiz List</h4>
+
+<div id="quizListContainer">
+    @if (Model == null || Model.Count == 0)
+    {
+        <p>There are no quizzes here!</p>
+    }
+    else
+    {
+        for (var i = 0; i < Model.Count; i++)
+        {
+            var quiz = Model[i];
+            <a href="/Professor/Details/@quiz.ID">@quiz.QuizName</a><br />
+        }
+    }
+</div>
+
+<h4>Create Quiz</h4>
+
+@using (Html.BeginForm("CreateQuiz", "Professor", FormMethod.Get))
+{
+    <label for="noOfQuestions">Number of Questions (1-10): </label>
+    <input type="number" name="noOfQuestions" min="1" max="10" />
+    <input type="submit" value="Create Quiz" class="SpecialButton" />
+}
+
+@Html.ActionLink("Head to your main page", "Index", "Professor", null, new { @class = "SpecialButton", role = "button" })

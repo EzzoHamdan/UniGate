@@ -1,0 +1,56 @@
+﻿@model IEnumerable<UniversityGate.Models.Cours>
+
+@{
+    ViewBag.Title = "Course Management";
+}
+
+
+<div class="container mt-3">
+    <h2>Course List</h2>
+
+    <p>
+        @Html.ActionLink("Add A New Course", "Create", null, new { @class = "btn btn-outline-success mt-2 m-lg-2" })
+        @Html.ActionLink("Return To Dashboard", "Index", "Administrator", null, new { @class = "btn btn-outline-success mt-2 m-lg-2" })
+    </p>
+
+    <table class="table table-success table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Course Title
+                </th>
+                <th>
+                    Credit Hours
+                </th>
+                <th>
+                    Department
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.course_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.credit_hours)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.department)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.course_id }, new { @class = "btn btn-outline-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = item.course_id }, new { @class = "btn btn-outline-success" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.course_id }, new { @class = "btn btn-outline-danger" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

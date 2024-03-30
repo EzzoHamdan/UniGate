@@ -1,0 +1,35 @@
+﻿@{
+    // Assuming ViewBag.registeredCourses contains the list of enrolled courses
+    var enrolledCourses = ViewBag.registeredCourses as List<UniversityGate.Models.EnrolledCours>; // Change 'EnrolledCourse' to the actual class name
+    var studentId = ViewBag.studentId;
+}
+<h2>Enrolled Courses</h2>
+
+@if (enrolledCourses != null && enrolledCourses.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Title</th>
+                <th>Credit Hours</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in enrolledCourses)
+            {
+                <tr>
+                    <td>@course.course_id</td>
+                    <td>@course.Cours.course_name</td> <!-- Assuming there's a navigation property 'Course' in EnrolledCourse class -->
+                    <td>@course.Cours.credit_hours</td>
+                    <!-- Add more cells for additional columns -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No enrolled courses found for this student.</p>
+}

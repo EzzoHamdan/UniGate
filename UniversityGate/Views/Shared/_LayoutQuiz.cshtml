@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto" rel="stylesheet">
+
+    <title>@ViewBag.Title - Your Website Title</title>
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        div {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        /* Light Mode */
+        button,
+        .SpecialButton {
+            background-color: #4caf50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Dark Mode */
+        .dark-mode button,
+        .dark-mode .SpecialButton {
+            background-color: #333;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #quiz-container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            display: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .answers label {
+                margin-bottom: 10px;
+                cursor: pointer;
+            }
+
+        #submit-btn {
+            background-color: #2196f3;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            #submit-btn:hover {
+                background-color: #0b7dda;
+            }
+
+        .dark-mode {
+            background-color: #222;
+            color: #fff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            .dark-mode button {
+                background-color: #4caf50;
+                border: none;
+                color: #fff;
+            }
+
+            .dark-mode div {
+                background-color: #333;
+                color: #fff;
+            }
+
+            .dark-mode #quiz-container {
+                background-color: #333;
+            }
+
+            .dark-mode .question {
+                background-color: #444;
+            }
+
+            .dark-mode .answers label {
+                color: #fff;
+            }
+
+                .dark-mode .answers label:hover {
+                    background-color: #555;
+                }
+
+                .dark-mode .answers label input:checked {
+                    border-color: #00ff00;
+                }
+
+        #scroll-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            #scroll-btn:hover {
+                background-color: #000;
+                color: #fff;
+            }
+
+        .dark-mode #scroll-btn {
+            background-color: #000;
+            color: #fff;
+        }
+
+            .dark-mode #scroll-btn:hover {
+                background-color: #fff;
+                color: #000;
+            }
+
+        .dark-mode h1 {
+            color: #fff;
+        }
+
+        nav {
+            background-color: #4caf50; /* Match the button background color in normal mode */
+            color: #fff; /* Match the button text color in normal mode */
+            padding: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode nav {
+            background-color: #2d0950; /* Match the background color for dark mode div */
+            color: #fff; /* Match the text color for dark mode div */
+        }
+        /* Normal Mode Styles */
+        a {
+            color: #2196f3; /* Match the button background color in normal mode */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            a:hover {
+                color: #0b7dda; /* Match the button hover background color in normal mode */
+            }
+
+        li {
+            color: #333; /* Match the color for h1 in normal mode */
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style-type: decimal;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode a {
+            color: #64b5f6; /* Match the color for h1 in dark mode */
+        }
+
+            .dark-mode a:hover {
+                color: #42a5f5; /* Match the button hover background color in dark mode */
+            }
+
+        .dark-mode li {
+            color: #fff; /* Match the text color for dark mode div */
+        }
+
+        .dark-mode ul {
+            background-color: #333; /* Match the background color for dark mode div */
+        }
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+            .dark-mode-toggle button {
+                background-color: #4caf50;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 5px;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .dark-mode-toggle button:hover {
+                    background-color: #45a049;
+                }
+        /* Dark Mode Toggle Button Styles */
+        .dark-mode .dark-mode-toggle button {
+            background-color: #2d0950; /* Match the dark mode background color */
+            color: #fff; /* Match the text color for dark mode */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            .dark-mode .dark-mode-toggle button:hover {
+                background-color: #593d91; /* Match the dark mode hover background color */
+            }
+
+        /* General paragraph styling */
+        p {
+            color: #555;
+            line-height: 1.5;
+            padding: 0px,10px,0px,10px;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+            font-family: 'Roboto', sans-serif; /* Change the font family to your preferred one */
+        }
+
+            /* Styling for links within paragraphs */
+            p a {
+                color: #2196f3;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                p a:hover {
+                    color: #0b7dda;
+                }
+
+        /* Styling for headings */
+        h1, h2, h3, h4, h5 {
+            color: #333;
+            transition: color 0.3s ease;
+            font-family: 'Montserrat', sans-serif; /* Change the font family to your preferred one */
+        }
+
+            /* Hover effect for headings */
+            h1:hover, h2:hover, h3:hover, h4:hover, h5:hover {
+                color: #0b7dda;
+            }
+
+        /* Dark mode styles for paragraphs */
+        .dark-mode p {
+            color: #fff;
+        }
+
+            .dark-mode p a {
+                color: #64b5f6;
+            }
+
+                .dark-mode p a:hover {
+                    color: #42a5f5;
+                }
+
+        /* Dark mode styles for headings */
+        .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5 {
+            color: #fff;
+        }
+
+            .dark-mode h1:hover, .dark-mode h2:hover, .dark-mode h3:hover, .dark-mode h4:hover, .dark-mode h5:hover {
+                color: #4caf50;
+            }
+        /* Additional Styles for Labels and Inputs */
+
+        /* Style for Labels */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        /* Style for Inputs */
+        input[type="text"],
+        input[type="radio"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="radio"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+            /* Style for Input Focus */
+            input[type="text"]:focus,
+            input[type="radio"]:focus,
+            input[type="password"]:focus,
+            input[type="email"]:focus,
+            input[type="number"]:focus,
+            textarea:focus {
+                border-color: #2196f3;
+            }
+
+        /* Dark mode styles for Labels and Inputs */
+        .dark-mode label {
+            color: #fff;
+        }
+
+        .dark-mode input[type="text"],
+        .dark-mode input[type="password"],
+        .dark-mode input[type="radio"],
+        .dark-mode input[type="email"],
+        .dark-mode input[type="number"],
+        .dark-mode textarea {
+            border-color: #fff;
+            color: #fff;
+            background-color: #2d0950;
+        }
+
+            /* Dark mode styles for Input Focus */
+            .dark-mode input[type="text"]:focus,
+            .dark-mode input[type="radio"]:focus,
+            .dark-mode input[type="password"]:focus,
+            .dark-mode input[type="email"]:focus,
+            .dark-mode input[type="number"]:focus,
+            .dark-mode textarea:focus {
+                border-color: #64b5f6;
+            }
+    </style>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <nav class="dark-mode-toggle">
+
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+        </nav>
+    </header>
+
+
+    @RenderBody()
+
+    <button id="scroll-btn" onclick="scrollToTop()">Scroll To Top</button>
+
+    <script>
+    // Check if dark mode is stored in local storage
+    const darkModeStored = localStorage.getItem('darkMode');
+    if (darkModeStored) {
+        document.body.classList.toggle('dark-mode', darkModeStored === 'true');
+    }
+
+    function toggleDarkMode() {
+        const isDarkMode = document.body.classList.toggle('dark-mode');
+
+        // Store dark mode preference in local storage
+        localStorage.setItem('darkMode', isDarkMode.toString());
+    }
+
+    function navigateTo(page) {
+        // Hide all content divs
+        document.querySelectorAll('.content').forEach(div => {
+            div.style.display = 'none';
+        });
+
+        // Show the selected page
+        document.getElementById(`${page}-page`).style.display = 'block';
+    }
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    </script>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

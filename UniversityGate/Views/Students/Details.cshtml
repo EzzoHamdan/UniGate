@@ -1,0 +1,15 @@
+﻿@model UniversityGate.Models.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Student Details</h2>
+
+@Html.Partial("_StudentDetails")
+
+
+@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-success" })
+@Html.ActionLink("Edit", "Edit", new { id = Model.student_id }, new { @class = "btn btn-outline-success" })
+
+

@@ -1,0 +1,72 @@
+﻿@model List<UniversityGate.Models.QuizModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutQuiz.cshtml"; ;
+    ViewBag.Title = "IndexPortal";
+}
+
+<h2>Quiz Page</h2>
+
+<h4>Quiz List</h4>
+
+<div id="quizListContainer">
+    @if (Model == null || Model.Count == 0)
+    {
+        <p>Applaud and Rejoice... No quizzes exist here!!!</p>
+    }
+    else
+    {
+        int c = 0;
+        foreach (var quiz in Model)
+        {
+            if (quiz.isTaken == true)
+            {
+                c++;
+                if (UniversityGate.Models.QuizModel.no == c)
+                {
+                    <p>Applaud and Rejoice... No quizzes exist here!!!</p>
+
+                    break;
+                }
+            }
+            else
+            {
+                <a href="#" class="TheQuizLink" data-quizid="@quiz.ID">@quiz.QuizName</a><br />
+            }
+
+        }
+
+
+
+    }
+
+</div>
+
+@Html.ActionLink("Head to your main page", "Index", "Professor", null, new { @class = "SpecialButton", role = "button" })
+
+
+<script>
+    // JavaScript to handle quiz link clicks
+    var quizLinks = document.getElementsByClassName("TheQuizLink");
+
+    function attemptQuiz(quizID) {
+        var confirmation = confirm("Are you sure you want to attempt the quiz?");
+
+        if (confirmation) {
+            window.location.href = "/Student/Take/" + quizID;
+        }
+    }
+
+    Array.from(quizLinks).forEach(function (link) {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Get the quiz ID from data attribute
+            var quizID = this.getAttribute("data-quizid");
+
+            // Attempt quiz on link click
+            attemptQuiz(quizID);
+        });
+    });
+
+</script>

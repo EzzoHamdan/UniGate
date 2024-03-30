@@ -1,0 +1,92 @@
+﻿@model UniversityGate.Models.Cours
+
+@{
+    ViewBag.Title = "coursDetails";
+}
+
+
+@*<h2>Details</h2>
+
+    <div>
+        <h4>Cours</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.course_name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.course_name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.credit_hours)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.credit_hours)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.department)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.department)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+
+        @Html.ActionLink("Back to List", "Enroll", new {id = ViewBag.sid}, new {@class = "btn btn-outline-success" })
+    </p>*@
+
+
+
+    <div class="container">
+        <h2>Details</h2>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Course</h4>
+                <hr />
+
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        Course Title
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.course_name)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Credit Hours
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.credit_hours)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Department
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.department)
+                    </dd>
+                    <dt class="col-sm-3">
+                        Professor
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Professor.first_name)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+
+        <p>
+            @Html.ActionLink("Back to List", "Enroll", new { id = ViewBag.sid }, new { @class = "btn btn-outline-success" })
+        </p>
+    </div>
+
+   

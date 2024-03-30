@@ -1,0 +1,68 @@
+﻿@model UniversityGate.Models.Student
+
+
+
+
+
+<hr />
+
+<div class="form-group">
+
+    <h5>First Name</h5>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <h5 style="margin-top:5px">Last Name</h5>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.last_name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.last_name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <h5 style="margin-top:5px">Student ID</h5>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.studentID, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.studentID, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div class="form-group">
+    <h5 style="margin-top:5px">Student Password</h5>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.studentPassword, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.studentPassword, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <h5 style="margin-top:5px">Data Of Birth</h5>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.date_of_birth, new { htmlAttributes = new { @class = "form-control" } })
+
+        @Html.ValidationMessageFor(model => model.date_of_birth, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <h5 style="margin-top:5px">Email</h5>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <h5 style="margin-top:5px">Enrollment Date</h5>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.enrollment_date, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.enrollment_date, "", new { @class = "text-danger" })
+    </div>
+</div>
+<br />
+
+@Html.ActionLink("Back to Dashboard", "Index", null, new { @class = "btn btn-outline-success" })
+

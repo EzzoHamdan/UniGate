@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+<div class="welcome-parallax">
+    <div class="background-layer">
+    </div>
+    <div class="foreground-layer">
+        <h1>@ViewBag.message <span>ADMIN</span>, Welcome Back</h1>
+        <p></p>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-primary">Student Management</h5>
+                    <p class="card-text">
+                        Effortlessly oversee student records, grades, and enrollment. Streamline your administrative tasks for student-related operations.
+                    </p>
+                    <center>@Html.ActionLink("Manage Students", "Index", "Students", new { area = "" }, new { @class = "btn btn-primary" })</center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-success">Professor Management</h5>
+                    <p class="card-text">
+                        Take control of professor details, assignments, and hiring. Simplify your administrative processes for professor-related activities.
+                    </p>
+                    <center>@Html.ActionLink("Manage Professors", "Index", "Professors", new { area = "" }, new { @class = "btn btn-success" })</center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-info">
+                <div class="card-body" style="text-align: center;">
+                    <cetner><h5 class="card-title text-info">Course Management</h5></cetner>
+                    <p class="card-text">
+                        Efficiently handle course creation, credit hours, and departmental coordination. Enhance your administrative capabilities for course-related tasks.
+                    </p>
+                    <center>@Html.ActionLink("Manage Courses", "Index", "Cours", new { area = "" }, new { @class = "btn btn-info" })</center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

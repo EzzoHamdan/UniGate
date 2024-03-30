@@ -1,0 +1,56 @@
+﻿@model UniversityGate.Models.Professor
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="welcome-parallax">
+    <div class="background-layer">
+    </div>
+    <div class="foreground-layer">
+        <h1>@ViewBag.message <span style="color:royalblue">Dr. @ViewBag.professorName</span>, Welcome Back</h1>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-primary">Professor Profile</h5>
+                    <p class="card-text">
+                        Effortlessly oversee student records, grades, and enrollment. Streamline your administrative tasks for student-related operations.
+                    </p>
+
+                    <center>@Html.ActionLink("Profile", "", "", new { area = "" }, new { @class = "btn btn-primary" })</center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-success">Show Grades</h5>
+                    <p class="card-text">
+                        Take control of professor details, assignments, and hiring. Simplify your administrative processes for professor-related activities.
+                    </p>
+
+                    <center>@Html.ActionLink("Show", "ShowGrades", "Professor", null, new { @class = "btn btn-success" })</center>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-info">
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title text-info">The Exams Portal</h5>
+                    <p class="card-text">
+                        A distinctive online exam portal designed for handling multiple-choice questions. With its own CSS style and JavaScript-powered functionality.
+                    </p>
+                    <center>@Html.ActionLink("Manage Exams", "IndexPortal", "Professor", new { area = "" }, new { @class = "btn btn-info" })</center>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

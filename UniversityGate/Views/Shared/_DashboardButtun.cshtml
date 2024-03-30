@@ -1,0 +1,12 @@
+﻿@if (User.IsInRole("Admin"))
+{
+    <li>@Html.ActionLink("Dashboard", "Index", "Administrator", new { area = "" }, new { @class = "nav-link" })</li>
+}
+else if (User.IsInRole("Student"))
+{
+    <li>@Html.ActionLink("Dashboard", "Index", "Student", new { area = ""}, new { @class = "nav-link" })</li>
+}
+else if (User.IsInRole("Professor"))
+{
+    <li>@Html.ActionLink("Dashboard", "Index", "Professor", new { area = "" }, new { @class = "nav-link" })</li>
+}
